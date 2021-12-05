@@ -5,6 +5,7 @@ const cors = require('cors')
 // App
 const app = express()
 
+// cors
 app.use(cors())
 
 // Morgan
