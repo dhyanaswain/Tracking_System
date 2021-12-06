@@ -1,0 +1,8 @@
+.break {
+    word-break: normal;
+    word-wrap: break-word;
+}
+
+.text {
+    font-size: 0.7rem;
+}

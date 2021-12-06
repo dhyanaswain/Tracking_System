@@ -6,7 +6,7 @@ function getUsers() {
     return new Promise((resolve, reject) => {
         if (users.length === 0) {
             reject({
-                message: 'no posts available',
+                message: 'no users available',
                 status: 202
             })
         }
@@ -76,7 +76,6 @@ function deleteUser(id) {
         .then(() => {
             users = users.filter(p => p.id !== parseInt(id))
 
-            console.log('user', users)
             helper.writeJSONFile(filename, users)
             resolve()
         })

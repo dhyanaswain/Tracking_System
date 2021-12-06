@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     })
 })
 
-/* Check a user with name ans password */
+/* Check a user with name and password */
 router.post('/login', middlewares.checkUserDetails, async (req, res) => {
     const { email, password } = req.body  
     await usersModel.getUserLogin(email, password)
@@ -48,9 +48,9 @@ router.get('/:id', middlewares.mustBeInteger, async (req, res) => {
 /* Insert a new user */
 router.post('/', middlewares.checkFieldsUser, async (req, res) => {
     await usersModel.insertUser(req.body)
-    .then(post => res.status(201).json({
-        message: `The user #${post.id} has been created`,
-        content: post
+    .then(user => res.status(201).json({
+        message: `The user #${user.id} has been created`,
+        content: user
     }))
     .catch(err => res.status(500).json({ message: err.message }))
 })
@@ -78,7 +78,7 @@ router.delete('/:id', middlewares.mustBeInteger, async (req, res) => {
 
     await usersModel.deleteUser(id)
     .then(user => res.json({
-        message: `The post #${id} has been deleted`
+        message: `The user #${id} has been deleted`
     }))
     .catch(err => {
         if (err.status) {

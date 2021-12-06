@@ -8,6 +8,16 @@ function mustBeInteger(req, res, next) {
     }
 }
 
+function mustBeString(req, res, next) {
+    const userName = req.params.userName
+
+    if (!(typeof userName) =='string') {
+        res.status(400).json({ message: 'userName must be an string' })
+    } else {
+        next()
+    }
+}
+
 function checkUserDetails(req, res, next) {
     const { email, password } = req.body
     if (email && password) {
@@ -26,8 +36,29 @@ function checkFieldsUser(req, res, next) {
     }
 }
 
+function checkFieldsOrder(req, res, next) {
+    const { from, to, status, content, pickedUpBy, placedBy } = req.body
+    if (from && to && status && content && (pickedUpBy || placedBy)) {
+        next()
+    } else {
+        res.status(400).json({ message: 'fields are not good' })
+    }
+}
+
+function checkFieldsUpdateOrder(req, res, next) {
+    const { status, placedBy } = req.body
+    if (status && placedBy) {
+        next()
+    } else {
+        res.status(400).json({ message: 'fields are not good' })
+    }
+}
+
 module.exports = {
     mustBeInteger,
+    mustBeString,
     checkUserDetails,
-    checkFieldsUser
+    checkFieldsUser,
+    checkFieldsOrder,
+    checkFieldsUpdateOrder
 }

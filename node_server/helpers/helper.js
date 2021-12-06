@@ -2,7 +2,11 @@ const fs = require('fs')
 
 const getNewId = (array) => {
     if (array.length > 0) {
-        return array[array.length - 1].id + 1
+        if (array[array.length - 1].id) {
+            return array[array.length - 1].id + 1
+        } else if (array[array.length - 1].orderId) {
+            return array[array.length - 1].orderId + 1
+        }
     } else {
         return 1
     }
@@ -10,12 +14,38 @@ const getNewId = (array) => {
 
 const newDate = () => new Date().toString()
 
-function mustBeInArray(array, id) {
+function mustBeInArray(array, userDetail) {
     return new Promise((resolve, reject) => {
-        const row = array.find(r => r.id == id)
+        const row = array.find(r => r.id == userDetail)
         if (!row) {
             reject({
                 message: 'ID is not found',
+                status: 404
+            })
+        }
+        resolve(row)
+    })
+}
+
+function mustBeInArrayOfOrder(array, userDetail) {
+    return new Promise((resolve, reject) => {
+        const row = array.filter(r => r.placedBy == userDetail).map( obj => obj)
+        if (!row) {
+            reject({
+                message: 'Order Details is not found',
+                status: 404
+            })
+        }
+        resolve(row)
+    })
+}
+
+function mustBeInArrayOfOrderById(array, id) {
+    return new Promise((resolve, reject) => {
+        const row = array.find(r => r.orderId == id)
+        if (!row) {
+            reject({
+                message: 'Order Details is not found',
                 status: 404
             })
         }
@@ -48,6 +78,8 @@ module.exports = {
     getNewId,
     newDate,
     mustBeInArray,
+    mustBeInArrayOfOrder,
     writeJSONFile,
-    mustBeAnUser
+    mustBeAnUser,
+    mustBeInArrayOfOrderById
 }
