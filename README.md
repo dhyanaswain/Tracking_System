@@ -4,6 +4,7 @@ Order Tracking
 # Example user:
 
 **Sender:**
+
     `{
         "id": 1,
         "name": "user1",
@@ -14,6 +15,7 @@ Order Tracking
         "createdAt": "Mon Dec 01 2021 15:16:17 GMT+0530 (India Standard Time)",
         "updatedAt": "Mon Dec 03 2021 15:16:17 GMT+0530 (India Standard Time)"
     }`
+
 **Biker:**
     `{
         "id": 6,
